@@ -9,8 +9,8 @@ IBM Watson Service.
 ## Contact
 
 Facebook: https://facebook.com/otisidevelop <br>
-Twitter: @otisidev<br>
-LinkedIn: https://linkedin.com/otisidev<br>
+Twitter: https://twitter.com/otisidev<br>
+LinkedIn: https://ng.linkedin.com/in/otisidev<br>
 Email: otisidevelop@gmail.com
 
 ## Supported Browsers
@@ -31,5 +31,3 @@ Alternatively you may use `yarn`:
 ```sh
 yarn add react-router-dom
 ```
-
-This works for any library, not just `react-router-dom`.
