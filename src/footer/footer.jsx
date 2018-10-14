@@ -11,7 +11,7 @@ class Footer extends Component {
             <a
               rel="noopener noreferrer"
               target="_blank"
-              href="https://github.com/otisidev"
+              href="https://github.com/otisidev/tts-bot"
             >
               &nbsp; here
             </a>

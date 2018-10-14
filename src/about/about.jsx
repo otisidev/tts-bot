@@ -24,7 +24,7 @@ class About extends Component {
           <a
             rel="noopener noreferrer"
             target="_blank"
-            href="https://github.com/otisidev"
+            href="https://github.com/otisidev/tts-bot"
             className="ui icon right labeled button"
             role="button"
           >

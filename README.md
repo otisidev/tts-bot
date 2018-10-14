@@ -8,9 +8,9 @@ IBM Watson Service.
 
 ## Contact
 
-Facebook: https://facebook.com/otisidevelop
-Twitter: @otisidev
-LinkedIn: https://linkedin.com/otisidev
+Facebook: https://facebook.com/otisidevelop <br>
+Twitter: @otisidev<br>
+LinkedIn: https://linkedin.com/otisidev<br>
 Email: otisidevelop@gmail.com
 
 ## Supported Browsers
