@@ -1,0 +1,22 @@
+body {
+    background: rgba(0, 0, 0, .05);
+    margin-top: 1rem;
+}
+
+.m-t {
+    margin-top: 4rem;
+}
+
+p {
+    font-size: 1rem;
+}
+
+.sub.header {
+    font-size: 1rem !important;
+}
+
+@media only screen and (max-width: 768px) {
+    .m-t {
+        margin-top: 0;
+    }
+}

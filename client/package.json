@@ -1,0 +1,36 @@
+{
+  "name": "tts-bot",
+  "version": "0.1.0",
+  "author": {
+    "name": "Otis Chiemezie",
+    "url": "https://github.com/otisidev",
+    "email": "otisidevelop@gmail.com"
+  },
+  "private": true,
+  "dependencies": {
+    "file-saver": "^2.0.0-rc.4",
+    "react": "^16.5.2",
+    "react-dom": "^16.5.2",
+    "react-scripts": "2.0.4",
+    "react-toastify": "^4.4.0",
+    "semantic-ui-css": "^2.4.1",
+    "semantic-ui-react": "^0.82.5"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "proxy": "http://localhost:8082/",
+  "license": "MIT"
+}
