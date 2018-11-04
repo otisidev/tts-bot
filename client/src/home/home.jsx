@@ -27,6 +27,7 @@ class Home extends Component {
 			}
 		};
 	}
+
 	componentDidMount() {
 		this.setLoading(true);
 		this.getVoices()
@@ -51,6 +52,33 @@ class Home extends Component {
 		return body;
 	};
 
+	// reset application
+	resetApp = () => {
+		this.setState({ selectedVoice: "" });
+		this.setState({ inputModel: "" });
+		this.setState({ audio: "" });
+	};
+
+	// handle listen button clicked event
+	handleListen = () => {
+		if (this.isFormValid()) {
+			this.setConverting(true);
+			this.convertText()
+				.then(cb => {
+					this.setConverting(false);
+					const music = document.getElementById("output");
+					music.src = URL.createObjectURL(cb);
+					music.load();
+					music.play();
+				})
+				.catch(() => {
+					this.setConverting(false);
+					toast.error("Failed! Please try again later");
+				});
+		} else {
+			toast.info("Form is invalid!", this.state.option);
+		}
+	};
 	// post to server
 	convertText = async () => {
 		const response = await fetch("/api/service/convert", {
@@ -84,13 +112,14 @@ class Home extends Component {
 		const { name, value } = data;
 		this.setState({ [name]: value });
 	};
-	// vlidation
+	// validation
 	isFormValid = () => {
 		return this.state.inputModel !== null || this.state.selectedVoice !== null;
 	};
-	// set converting
+	// toggle loading state
 	setConverting = state => this.setState({ converting: state });
-	// submit form
+
+	// submit form : Download button clicked
 	handleFormSubmittion = () => {
 		if (this.isFormValid()) {
 			this.setConverting(true);
@@ -98,12 +127,6 @@ class Home extends Component {
 				.then(cb => {
 					this.setConverting(false);
 					FileSaver.saveAs(cb, "audio.mp3");
-					// const music = document.getElementById("output");
-					// console.log(music);
-					// music.src = URL.createObjectURL(cb);
-					// music.load();
-					// console.log("volume ", music.volume);
-					// music.play();
 				})
 				.catch(() => {
 					this.setConverting(false);
@@ -135,6 +158,7 @@ class Home extends Component {
 								search
 								name="selectedVoice"
 								selection
+								value={this.state.selectedVoice}
 								onChange={this.handleItemSelection}
 								options={this.state.voices}
 							/>
@@ -142,6 +166,7 @@ class Home extends Component {
 						<Form.TextArea
 							rows="10"
 							name="inputModel"
+							value={this.state.inputModel}
 							label="Input Text"
 							onChange={event => this.handleUserInput(event)}
 							placeholder="enter the text to be converted .."
@@ -159,6 +184,8 @@ class Home extends Component {
 						</Button>
 						<Button
 							icon
+							loading={this.state.converting}
+							onClick={this.handleListen}
 							disabled={
 								this.state.loading || this.state.converting || !this.isFormValid
 							}
@@ -177,6 +204,7 @@ class Home extends Component {
 							basic
 							color="purple"
 							floated="right"
+							onClick={this.resetApp}
 						>
 							Reset
 							<Icon name="undo" />
