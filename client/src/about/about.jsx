@@ -63,7 +63,7 @@ class About extends Component {
 							icon
 							labelPosition="left"
 							negative
-							color="gray"
+							color="grey"
 						>
 							Close
 							<Icon name="close" />

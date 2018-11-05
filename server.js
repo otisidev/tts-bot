@@ -4,10 +4,34 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const app = express();
 const PORT = process.env.PORT || 8082;
+const cors = require("cors");
 
 //body parser
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// CORS
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", "*");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Origin, X-Request-With, Content-Type, Accept, Authorization"
+	);
+	if (req.method === "OPTIONS") {
+		res.header("Access-Control-Allow-Methods", "GET, PUT, POST PATCH, DELETE");
+	}
+	// contuine executing ..
+	next();
+});
+
+// use cors
+app.use(
+	cors({
+		origin: "*",
+		methods: "*",
+		allowedHeaders: "*"
+	})
+);
 
 //
 const text2Speech = new TextToSpeechV1({
@@ -16,7 +40,7 @@ const text2Speech = new TextToSpeechV1({
 	url: "https://stream.watsonplatform.net/text-to-speech/api"
 });
 
-app.use(express.static(path.join(__dirname, "wp-content")));
+app.use(express.static(path.join(__dirname, "client/build")));
 // done: Tested
 app.get("/api/service/voices", (req, res) => {
 	// TODO: call api here
@@ -51,7 +75,6 @@ app.post("/api/service/convert", (req, res) => {
 			}
 			return res.send(file);
 		});
-		// .pipe(fs.createWriteStream("wp-content/audio.mp3"));
 	} else {
 		return res.status(404).send({
 			message: "Bad data! Voice and input text are required!",
@@ -60,6 +83,12 @@ app.post("/api/service/convert", (req, res) => {
 	}
 	//TODO: call api here
 });
+
+//every other request
+// app.get("*", (req, res) => {
+// 	return res.sendfile(path.join(__dirname, "client/build/index.html"));
+// });
+
 app.listen(PORT, () => {
 	console.log("Server listening on port:" + PORT);
 });

@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import Header from "../header/header";
 import Footer from "../footer/footer";
 import "./home.css";
-import { ToastContainer, toast } from "react-toastify";
+// import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import FileSaver from "file-saver";
 import { Dropdown, Form, Button, Icon } from "semantic-ui-react";
@@ -37,7 +37,7 @@ class Home extends Component {
 			})
 			.catch(err => {
 				this.setLoading(false);
-				console.error(JSON.stringify(err));
+				// toast.error(err.statusText);
 			});
 	}
 	// loading
@@ -46,8 +46,9 @@ class Home extends Component {
 	getVoices = async () => {
 		const response = await fetch("/api/service/voices");
 		const body = await response.json();
+		console.log(JSON.stringify(body, null, 6));
 		// only for error
-		if (response.status !== 200) throw Error(body.message);
+		// toast.error(response.statusText, this.state.option);
 		// return res body here.
 		return body;
 	};
@@ -73,10 +74,10 @@ class Home extends Component {
 				})
 				.catch(() => {
 					this.setConverting(false);
-					toast.error("Failed! Please try again later");
+					// toast.error("Failed! Please try again later", this.state.option);
 				});
 		} else {
-			toast.info("Form is invalid!", this.state.option);
+			alert("Form is invalid!");
 		}
 	};
 	// post to server
@@ -94,10 +95,10 @@ class Home extends Component {
 		});
 
 		const body = await response.blob();
-		if (response.status !== 200) {
-			toast.error(body.message, this.state.option);
-			throw Error(body.message);
-		}
+		// if (response.status !== 200) {
+		// 	// toast.error(body.message, this.state.option);
+		// 	// throw Error(body.message);
+		// }
 
 		return body;
 	};
@@ -128,8 +129,9 @@ class Home extends Component {
 					this.setConverting(false);
 					FileSaver.saveAs(cb, "audio.mp3");
 				})
-				.catch(() => {
+				.catch(rr => {
 					this.setConverting(false);
+					console.log(rr);
 				});
 		}
 	};
@@ -213,7 +215,7 @@ class Home extends Component {
 					<audio id="output" />
 				</div>
 				<Footer />
-				<ToastContainer
+				{/* <ToastContainer
 					position="bottom-right"
 					autoClose={false}
 					newestOnTop
@@ -221,7 +223,7 @@ class Home extends Component {
 					rtl={false}
 					pauseOnVisibilityChange
 					draggable={false}
-				/>
+				/> */}
 			</React.Fragment>
 		);
 	}
